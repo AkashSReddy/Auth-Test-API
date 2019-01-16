@@ -10,6 +10,7 @@ var flash = require("connect-flash");
 const auth = require("./middleware/authentication");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+require("dotenv").config();
 
 var app = express();
 
@@ -24,10 +25,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 mongoose.connect(
-  "mongodb://localhost/Test-API",
-  { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false },
+  process.env.MONGO_URI,
+  { useNewUrlParser: true, useFindAndModify: false },
   err => {
-    if (!err) console.log("Connection Successfull");
+    if (!err) console.log("Connection successful");
+    if (err) console.log(err);
   }
 );
 
