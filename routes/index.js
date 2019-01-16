@@ -26,7 +26,7 @@ router.post("/register", async (req, res, next) => {
     }
     res.json(message);
   } catch (error) {
-    return next(error);
+    return res.json(error);
   }
 });
 

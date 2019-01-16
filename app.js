@@ -3,8 +3,10 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-var 
-
+var mongoose = require("mongoose");
+var session = require("cookie-session");
+var passport = require("passport");
+var flash = require("connect-flash");
 const auth = require("./middleware/authentication");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -50,7 +52,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
 
 // rerouting
 
