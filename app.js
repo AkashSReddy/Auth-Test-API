@@ -3,7 +3,9 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var 
 
+const auth = require("./middleware/authentication");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
@@ -27,7 +29,33 @@ mongoose.connect(
   }
 );
 
+//passport setup
+
+const keys = ["Ron", "Swanson"];
+const expiryDate = new Date(5 * Date.now() + 60 * 60 * 1000); // 5 hours
+
+app.use(
+  session({
+    secret: "mustache",
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      secure: true,
+      expires: expiryDate
+    },
+    keys: keys
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+
+// rerouting
+
 app.use("/", indexRouter);
+app.all("/users*", auth.isLoggedIn);
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
