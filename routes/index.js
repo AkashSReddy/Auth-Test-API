@@ -43,10 +43,6 @@ router.get("/session", auth.isLoggedIn, (req, res, next) => {
   res.json("session running");
 });
 
-router.get("/session", (req, res, next) => {
-  res.json("session not running");
-});
-
 router.get("/logout", auth.isLoggedIn, (req, res) => {
   req.logout();
   res.json("Logged Out");
