@@ -11,11 +11,20 @@ router.get("/", function(req, res, next) {
 
 router.get("/route", (req, res, next) => {
   try {
-    return res.redirect("/user");
+    return res.redirect("/users");
   } catch (error) {
     next(error);
   }
 });
+
+router.post(
+  "/login",
+  passport.authenticate("login", {
+    successRedirect: "/route",
+    failureRedirect: "/",
+    failureFlash: true
+  })
+);
 
 router.post("/register", async (req, res, next) => {
   try {
@@ -30,12 +39,4 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
-router.post(
-  "/login",
-  passport.authenticate("login", {
-    successRedirect: "/route",
-    failureRedirect: "/",
-    failureFlash: true
-  })
-);
 module.exports = router;
