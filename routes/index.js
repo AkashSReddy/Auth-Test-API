@@ -47,11 +47,11 @@ router.post("/register", async (req, res, next) => {
     let message = await database.addUser(req.body);
     console.log(message);
     if (message === "ok") {
-      return res.send("register is Success");
+      return res.json("Success");
     }
     res.json(message);
   } catch (error) {
-    return res.json(error);
+    return res.json(error.message);
   }
 });
 
