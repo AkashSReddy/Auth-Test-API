@@ -1,3 +1,5 @@
+const jwt = require("../utils/jwt");
+
 module.exports = {
   isLoggedIn: (req, res, next) => {
     if (req.isAuthenticated()) {
