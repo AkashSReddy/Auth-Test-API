@@ -56,7 +56,7 @@ router.post("/register", async (req, res, next) => {
 });
 
 router.get("/session", auth.isApiUser, (req, res, next) => {
-  res.json("jwt test success");
+  res.json({ success: true });
 });
 
 router.get("/logout", auth.isLoggedIn, (req, res) => {
