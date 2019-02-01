@@ -21,5 +21,19 @@ module.exports = {
     error.message = "You shall not pass.";
     error.status = 403;
     next(error);
+  },
+
+  isApiUser: (req, res, next) => {
+    // console.log(req.url);
+    // console.log(req.headers.token);
+    const userId = jwt.verify(req.headers.token);
+    if (userId) {
+      req.user = { id: userId };
+      return next();
+    }
+    let err = new Error();
+    err.status = 500;
+    err.message = "Invalid token supplied with request.";
+    return next(err);
   }
 };
