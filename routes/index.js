@@ -31,10 +31,10 @@ router.get("/route", (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
-    return res.json("User not found!");
+    return res.json({ success: false });
   }
   if (!bcrypt.compareSync(req.body.password, user.password)) {
-    return res.json("Incorrect Password");
+    return res.json({ success: false });
   }
   const token = jwt.generate(user._id);
   res.setHeader("token", token);
@@ -47,7 +47,7 @@ router.post("/register", async (req, res, next) => {
     let message = await database.addUser(req.body);
     console.log(message);
     if (message === "ok") {
-      return res.json("Success");
+      return res.json({ success: true });
     }
     res.json(message);
   } catch (error) {
