@@ -31,10 +31,10 @@ router.get("/route", (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
-    return next(new Error("User not found!"));
+    return res.json("User not found!");
   }
   if (!bcrypt.compareSync(req.body.password, user.password)) {
-    return next(new Error("Incorrect Password"));
+    return res.json("Incorrect Password");
   }
   const token = jwt.generate(user._id);
   res.setHeader("token", token);
