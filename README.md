@@ -11,14 +11,14 @@ route : /register
 request type : POST
 Body : {email : , password : }
 failure response : {error message} ("User already registered" if user already registered)
-success response : {success}
+success response : {{success : true}}
 ```
 
 ```
 route : /login
 request type : POST
 Body : {email : , password : }
-failure response : {User not found!/Incorrect Password}
+failure response : {{ success: false }}
 success response : {{ success: true }}
 Header Included in response 
 ```
